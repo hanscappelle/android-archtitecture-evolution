@@ -35,7 +35,7 @@ With Google’s shift to Kotlin-first development, Android development with MVVM
 
 ## Model-View-Intent (MVI)
 
-`MVI` is again an evolution of MVVM, this time aiming to solve the many ways data flows between presentation layer components with the introduction of unidirectional data flow (UDF) and immutability. Two concepts that are perfectly suited for the current reactive and declarative programming and easily achieved with Kotlin and Compose.
+`MVI` is again an evolution of MVVM, this time aiming to solve the many ways data flows between presentation layer components with the introduction of unidirectional data flow (UDF) and immutability. Two concepts that are perfectly suited for reactive and declarative programming and easily achieved with Kotlin and Compose.
 
 In this MVI pattern the `Model` represents the state of the application using immutable data classes and the absence of business logic. This is where I need to clarify that this Model is not the same Model from the MVC, MVP or MVVM pattern. Instead it's a simple UI state data class.
 
