@@ -1,62 +1,50 @@
-# A History of Android Application Architecture from MVC to MVVM
+# A History of Android Application Architecture: From MVC to MVVM
 
-This writing describes an evolution in native android development from an MVC Architecture with Activities and Fragments handling both domain and UI logic towards a better separation of concerns (SoC) with the introduction of a ViewModel base class and the MVVM Architecture.
+This writing explores the evolution of native Android development, transitioning from an `MVC architecture`, where `Activities` and `Fragments` handled both domain and UI logic, to `MVVM`, introducing the `ViewModel` base class to promote a better separation of concerns (`SoC`).
 
-All of the following can be applied to both large and small, single and multi module applications. Using XML layouts or declarative jetpack compose UI. Every pattern described is a way of organising code in the presentation layer of your app. 
+The concepts discussed apply to both small and large applications, single- or multi-module, and are relevant for both XML layouts and declarative Jetpack Compose UI. Each architectural pattern covered here focuses on structuring the presentation layer of an Android app.
 
-Though Activities, Fragments and ViewModels are Android Framework specific all of this can be used much wider.
+While `Activities`, `Fragments`, and `ViewModels` are specific to the Android framework, the principles behind these patterns extend beyond Android development.
 
-Note that the word `Model` in these design patterns refers to code containing data and business logic and is not just a data class (or POJO for people stuck in Java land).
+It’s important to note that in these design patterns, the term “Model” refers to code that contains data and business logic, not just a simple data class (or a `POJO` for those stuck in Java land).
 
-## Model-View-Controller
+## Model-View-Controller (MVC)
 
-Is an architecture that was (is ?) mostly used by iOS developers but not limited to mobile development in any way. 
+`MVC` is an architectural pattern mostly associated with iOS development, though it’s not exclusive to mobile applications. It divides the presentation layer into three core components:
 
-It divides the presentation layer in the following 3 components: Model, View and Controller. 
+- `Model` – Responsible for data, business logic, and application state. It does not interact with the UI directly and only responds to requests from the Controller.
+- `View` – Displays data received from the Controller and renders the UI. It also passes user interactions (events) back to the Controller. The View has no knowledge of the business logic. 
+- `Controller` – Acts as a mediator between the View and Model. It processes UI events, updates the Model, and then informs the View accordingly. This results in a bi-directional data flow.
 
-The Model: has no knowledge of the presentation. It's responsible for data, business logic and application state and responds to requests from the Controller. 
+In Android development, Activities or Fragments often served as the Controller, leading to large classes with too many responsibilities. This tightly coupled architecture made it difficult to test and maintain due to the heavy reliance on Android platform-specific code.
 
-The View: receives data from the controller and is responsible for rendering this data on screen and passing UI events back to the controller. It has no knowledge of the business logic. 
+## Model-View-Presenter (MVP)
 
-The Controller: is what connects these 2 together. It receives events from the View and updates the Model. The Updated model is then passed back to the View to update the UI. Note this bi directional data flow. 
+`MVP` emerged as a solution to the issues in MVC by introducing a Presenter, moving most business logic away from the Controller into a separate class.
 
-In Android development this Controller was often implemented directly by the Activity or Fragment. Resulting in large classes with too much responsibilities strangled with Android platform specific code making it difficult to test these.
+An interface or contract was then created between the Presenter and View. Helping in testing that Presenter using Mocked Views. Another interface was added as a contract between the Presenter and Model.
 
-## Model-View-Presenter
+A powerful solution when combined with dependency injection frameworks like Koin that allowed injection based on these interfaces. However, MVP also introduced significant boilerplate code, and ultimately, the Presenter was still tied to the Android View lifecycle.
 
-A solution for this was introduced with the MVP Architecture adding a Presenter and moving most business logic from the Controller into a dedicated class. 
+## Model-View-ViewModel (MVVM)
 
-An interface or contract was then created between the Presenter and the View. Helping in testing that presenter using Mocked views. Another interface was added as a contract between the Presenter and Model. 
+`MVVM` was Google’s response to these issues, introducing the ViewModel, a lifecycle-aware component that replaces the Presenter while maintaining a similar structure to MVP.
 
-A powerful solution combined with dependency injection frameworks like Koin that allowed injection based on these interfaces. 
+The `ViewModel` is fully lifecycle aware surviving configuration changes and is responsible for UI specific data.
+With Google’s shift to Kotlin-first development, Android development with MVVM has become much more efficient. Enhancements like Kotlin delegates, extensions, and lifecycle-aware components like LiveData and StateFlow have further simplified using this architecture, paving the way for unidirectional data flow (UDF).
 
-However also creating a lot of boilerplate code. And in the end the presenter was still bound to the lifespan of the Android Views. 
+## Model-View-Intent (MVI)
 
-## Model-View-ViewModel
+`MVI` is again an evolution of MVVM, this time aiming to solve the many ways data flows between presentation layer components with the introduction of unidirectional data flow (UDF) and immutability. Two concepts that are perfectly suited for the current reactive and declarative programming and easily achieved with Kotlin and Compose.
 
-Or MVVM was an answer from Google with a new lifecycle aware component named the ViewModel. In essence still an evolution of the previous MVP Architecture but this time replacing the non Android specific Presenter.
+In this MVI pattern the `Model` represents the state of the application using immutable data classes and the absence of business logic. This is where I need to clarify that this Model is not the same Model from the MVC, MVP or MVVM pattern. Instead it's a simple UI state data class.
 
-The ViewModel is fully lifecycle aware surviving configuration changes and is responsible for UI specific data. 
+The `View` is still the View but now it observes the state changes and renders these to the screen. Again no business logic here.
 
-In the recent years of Android development with a change towards a Kotlin first approach lots of improvements were made making development for native Android apps with this MVVM Architecture a blast. 
+The `Intent` are all the UI events, many of which are triggered by user interactions, and are handled by the ViewModel. Possibly resulting in more UI State changes.
 
-For example the addition of delegates and extensions to reference a ViewModel instance in your Activity. But also LiveData and StateFlows bringing us to the latest UDF approach.
+This results in the following unidirectional data flow: `View → Intent → ViewModel → State → View`
 
-## Model-View-Intent 
+With `StateFlow`, implementing this pattern is straightforward, making `LiveData` and `data binding` obsolete.
 
-MVI is again an evolution of MVVM, this time aiming to solve the many ways data flows between presentation layer components with the introduction of unidirectional flow (UDF) and immutability. 
-
-Two concepts that are perfectly suited for the current reactive and declarative programming and easily achieved with Kotlin and Compose. 
-
-In this MVI pattern the Model represents the state of the application using immutable data classes and the absence of any business logic. This is where I need to clarify that this Model is not the same Model from the MVC, MVP or MVVM pattern. Instead it's just a UI state data class. 
-
-The View is still the View but now it observes the state changes and renders these to the screen. Again no business logic here. 
-
-The Intent are all the UI events, many of which are triggered by user interactions, and are handled by the ViewModel. Possibly resulting in more UI State changes. 
-
-This represents the following uni directional data flow: `View > Intent > ViewModel > State > View`.
-
-
-Something that can be implemented using a StateFlow. Making LiveData (and data binding) obsolete.
-
-Luckily I haven't been involved much in projects using Android specific data binding (nor view binding). And with compose UI I'm confident I won't need to anytime soon. 
+Fortunately, I haven’t been involved much in projects that rely heavily on Android-specific data binding (nor view binding). And with Jetpack Compose, I’m confident I won’t need to anytime soon. Thanks for reading.
