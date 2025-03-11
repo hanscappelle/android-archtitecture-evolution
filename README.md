@@ -48,13 +48,13 @@ MVI is again an evolution of MVVM, this time aiming to solve the many ways data 
 
 Two concepts that are perfectly suited for the current reactive and declarative programming and easily achieved with Kotlin and Compose. 
 
-In this MVI patter the Model represents the state of the application using immutable data class and the absence of any business logic. This is where I need to clarify that this Model is the same Model from the MVC, MVP or MVVM pattern. Instead it's just a UI state data class. 
+In this MVI pattern the Model represents the state of the application using immutable data classes and the absence of any business logic. This is where I need to clarify that this Model is not the same Model from the MVC, MVP or MVVM pattern. Instead it's just a UI state data class. 
 
-The View is still the View but not it observes the state changes and renders these to the screen. Again no business logic here. 
+The View is still the View but now it observes the state changes and renders these to the screen. Again no business logic here. 
 
-The Intent are all the UI events, many of which are triggered by user interactions, and are handled by the ViewModel, possibly resulting in more UI State changes. 
+The Intent are all the UI events, many of which are triggered by user interactions, and are handled by the ViewModel. Possibly resulting in more UI State changes. 
 
-This represents the following uni directional flow: `View > Intent > ViewModel > State > View`.
+This represents the following uni directional data flow: `View > Intent > ViewModel > State > View`.
 
 
 Something that can be implemented using a StateFlow. Making LiveData (and data binding) obsolete.
