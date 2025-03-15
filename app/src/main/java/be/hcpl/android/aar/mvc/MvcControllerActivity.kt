@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import be.hcpl.android.aar.common.AppScaffold
-import be.hcpl.android.aar.common.Task
-import be.hcpl.android.aar.common.TaskRepository
+import be.hcpl.android.aar.common.model.Task
+import be.hcpl.android.aar.common.domain.TaskRepository
 import be.hcpl.android.aar.common.navigate
 import org.koin.android.ext.android.inject
 

@@ -1,9 +1,9 @@
 package be.hcpl.android.aar.mvi
 
 import androidx.lifecycle.ViewModel
-import be.hcpl.android.aar.common.Task
-import be.hcpl.android.aar.common.TaskList
-import be.hcpl.android.aar.common.TaskRepository
+import be.hcpl.android.aar.common.model.Task
+import be.hcpl.android.aar.common.model.TaskList
+import be.hcpl.android.aar.common.domain.TaskRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

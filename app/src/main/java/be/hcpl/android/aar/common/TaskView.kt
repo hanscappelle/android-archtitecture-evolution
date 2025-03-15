@@ -19,13 +19,13 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import be.hcpl.android.aar.common.model.Task
 import be.hcpl.android.aar.common.theme.AppTheme
 
 @Composable
 fun TaskView(
     task: Task,
     onTaskSelected: (Task) -> Unit = {},
-    modifier: Modifier = Modifier,
 ) {
     Row(
         horizontalArrangement = spacedBy(8.dp),

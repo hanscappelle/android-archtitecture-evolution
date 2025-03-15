@@ -1,6 +1,6 @@
 package be.hcpl.android.aar.common.di
 
-import be.hcpl.android.aar.common.TaskRepository
+import be.hcpl.android.aar.common.domain.TaskRepository
 import be.hcpl.android.aar.mvi.MviViewModel
 import be.hcpl.android.aar.mvp.Presenter
 import be.hcpl.android.aar.mvp.PresenterImpl

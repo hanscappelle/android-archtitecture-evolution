@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import be.hcpl.android.aar.common.AppScaffold
 import be.hcpl.android.aar.common.CodeView
-import be.hcpl.android.aar.common.Task
+import be.hcpl.android.aar.common.model.Task
 import be.hcpl.android.aar.common.TaskListView
 import be.hcpl.android.aar.common.navigate
 import org.koin.androidx.viewmodel.ext.android.viewModel

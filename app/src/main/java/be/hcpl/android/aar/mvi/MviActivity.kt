@@ -1,6 +1,6 @@
 package be.hcpl.android.aar.mvi
 
-import be.hcpl.android.aar.common.TaskList
+import be.hcpl.android.aar.common.model.TaskList
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.bundle.Bundle

@@ -2,8 +2,8 @@ package be.hcpl.android.aar.mvvm
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import be.hcpl.android.aar.common.Task
-import be.hcpl.android.aar.common.TaskRepository
+import be.hcpl.android.aar.common.model.Task
+import be.hcpl.android.aar.common.domain.TaskRepository
 
 class MvvmViewModel(
     private val taskRepository: TaskRepository,

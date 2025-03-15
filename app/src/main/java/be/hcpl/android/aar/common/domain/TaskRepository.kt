@@ -1,4 +1,6 @@
-package be.hcpl.android.aar.common
+package be.hcpl.android.aar.common.domain
+
+import be.hcpl.android.aar.common.model.Task
 
 class TaskRepository {
 

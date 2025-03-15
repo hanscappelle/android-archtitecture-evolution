@@ -1,4 +1,4 @@
-package be.hcpl.android.aar.common
+package be.hcpl.android.aar.common.model
 
 data class Task(
     val description: String,

@@ -1,7 +1,7 @@
 package be.hcpl.android.aar.mvp
 
-import be.hcpl.android.aar.common.Task
-import be.hcpl.android.aar.common.TaskRepository
+import be.hcpl.android.aar.common.model.Task
+import be.hcpl.android.aar.common.domain.TaskRepository
 
 interface Presenter {
 
