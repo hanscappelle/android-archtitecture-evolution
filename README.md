@@ -251,4 +251,73 @@ class MviViewModel(
 }
 ```
 
-Fortunately, I haven’t been involved much in projects that rely heavily on Android-specific data binding (nor view binding). And with Jetpack Compose, I’m confident I won’t need to anytime soon. Thanks for reading.
+## Code Example
+
+Some final snippets to get everything working. Like the required plugins in the main `build.gradle` file:
+```
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.compose) apply false
+}
+```
+And the dependencies in the `app/build.gradle` file (you can check the project for all the versions):
+```
+dependencies {
+    // main
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    // for injection
+    implementation(libs.koin.android)
+    // compose
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.material3)
+    // tooling
+    implementation(libs.androidx.ui.tooling.preview.android)
+    implementation(libs.androidx.ui.tooling)
+}
+```
+
+Dependency injection is done with koin, so in manifest contains a specific Application:
+```
+<application
+        android:name=".common.di.MainApplication"
+        ...
+        tools:targetApi="31">
+```
+```
+class MainApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidLogger()
+            androidContext(this@MainApplication)
+            modules(appModule)
+        }
+    }
+}
+```
+```
+al appModule = module {
+    viewModelOf(::MvvmViewModel)
+    viewModelOf(::MviViewModel)
+    factoryOf(::TaskRepository)
+    factoryOf(::PresenterImpl) { bind<Presenter>() } // injected by interface here
+}
+```
+And how something is injected then 
+```
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
+class SomeActivity: ComponentActivity() {
+    private val presenter: Presenter by inject()
+    private val viewModel: MvvmViewModel by viewModel()
+    //...
+}
+```
+
+## Thank you for reading
+
+Fortunately, I haven’t been involved much in projects that rely heavily on Android-specific data binding (nor view binding). And with Jetpack Compose, I’m confident I won’t need to anytime soon.
