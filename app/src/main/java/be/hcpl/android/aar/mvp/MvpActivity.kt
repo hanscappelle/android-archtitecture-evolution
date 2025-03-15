@@ -9,7 +9,6 @@ import androidx.compose.ui.unit.dp
 import be.hcpl.android.aar.common.AppScaffold
 import be.hcpl.android.aar.common.Task
 import be.hcpl.android.aar.common.TaskListView
-import be.hcpl.android.aar.mvc.MvcView
 import org.koin.android.ext.android.inject
 
 /**
@@ -26,9 +25,22 @@ class MvpActivity : ComponentActivity(), View {
         super.onCreate(savedInstanceState)
         // the presenter is not aware yet of the view,
         // and we should manually check if still attached
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        // since a presenter is not lifecycle aware we have to manually
+        // add/remove the view, this is a very basic approach
         presenter.view = this
+
         // we now have a presenter to manage our app state and business logic
         presenter.showAllTasks()
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        // and remove it again when not attached
+        presenter.view = null
     }
 
     override fun renderTasks(tasks: List<Task>) {

@@ -17,6 +17,7 @@ class PresenterImpl(
     private val taskRepository: TaskRepository,
 ) : Presenter {
 
+    // note that this view is optional here, a very minimal approach to check if attached or not
     override var view: View? = null
 
     private var allTasks: List<Task> = emptyList()
@@ -28,7 +29,6 @@ class PresenterImpl(
 
     override fun toggleTask(task: Task) {
         allTasks = allTasks.map { if (it == task) it.copy(completed = !task.completed) else it }
-        // TODO we need to check if view is attached also
         view?.renderTasks(allTasks)
     }
 }
