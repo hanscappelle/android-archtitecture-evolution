@@ -7,7 +7,9 @@ import androidx.core.bundle.Bundle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import be.hcpl.android.aar.common.navigate
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.getValue
+//import kotlin.getValue
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 
 /**
  * MVI is really an evolution of MVVM that benefits from stateFlows and
@@ -22,8 +24,7 @@ class MviActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             // now we have a viewModel with StateFlow exposed
-            //val tasks by viewModel.tasks.collectAsStateWithLifecycle()
-            val tasks = TaskList() // TODO fix this
+            val tasks by viewModel.tasks.collectAsStateWithLifecycle()
             MviView(
                 tasks = tasks,
                 onTaskSelected = { task -> viewModel.toggleTask(task) },

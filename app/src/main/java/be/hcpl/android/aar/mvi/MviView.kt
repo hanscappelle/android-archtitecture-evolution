@@ -46,13 +46,11 @@ fun MviView(
             CodeView(
                 text = "class MviActivity : ComponentActivity() {\n" +
                         "\n" +
-                        "    // now it really gets interesting with the addition of flows in our ViewModel\n" +
                         "    private val viewModel: MviViewModel by viewModel()\n" +
                         "\n" +
                         "    override fun onCreate(savedInstanceState: Bundle?) {\n" +
                         "        super.onCreate(savedInstanceState)\n" +
                         "        setContent {\n" +
-                        "            // now we have a viewModel with StateFlow exposed\n" +
                         "            val tasks by viewModel.tasks.collectAsStateWithLifecycle()\n" +
                         "            MviView(\n" +
                         "                tasks = tasks,\n" +
