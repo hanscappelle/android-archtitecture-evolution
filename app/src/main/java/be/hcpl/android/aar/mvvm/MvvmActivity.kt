@@ -1,6 +1,20 @@
 package be.hcpl.android.aar.mvvm
 
+import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import be.hcpl.android.aar.common.AppScaffold
+import be.hcpl.android.aar.common.Task
+import be.hcpl.android.aar.common.TaskListView
+import be.hcpl.android.aar.common.navigate
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -12,4 +26,40 @@ class MvvmActivity : ComponentActivity() {
 
     // important difference here is the introduction of a ViewModel
     private val viewModel: MvvmViewModel by viewModel()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // now we have a viewModel with LiveData exposed
+        viewModel.tasks.observeForever(::renderTasks)
+        // and then trigger an update
+        viewModel.showAllTasks()
+    }
+
+    fun renderTasks(tasks: List<Task>) {
+        setContent {
+            AppScaffold(
+                navigateTo = { destination -> navigate(destination) }
+            ) {
+                Column(
+                    verticalArrangement = spacedBy(8.dp),
+                    modifier = Modifier.padding(16.dp),
+                ) {
+                    Text(
+                        text = "Overview of all tasks with MVVM",
+                        style = MaterialTheme.typography.titleLarge,
+                    )
+                    HorizontalDivider()
+                    TaskListView(
+                        tasks = tasks,
+                        onTaskSelected = { task ->
+                            // also here this has moved to the presenter
+                            // so the presenter can again update the view
+                            viewModel.toggleTask(task)
+                        },
+                        modifier = Modifier.padding(16.dp),
+                    )
+                }
+            }
+        }
+    }
 }
