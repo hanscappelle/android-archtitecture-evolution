@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.dp
 import be.hcpl.android.aar.common.AppScaffold
 import be.hcpl.android.aar.common.Task
 import be.hcpl.android.aar.common.TaskRepository
+import be.hcpl.android.aar.common.navigate
 import be.hcpl.android.aar.mvi.MviActivity
 import be.hcpl.android.aar.mvp.MvpActivity
 import be.hcpl.android.aar.mvvm.MvvmActivity
@@ -58,12 +59,4 @@ class MvcControllerActivity : ComponentActivity() {
         renderTasks(allTasks)
     }
 
-    private fun navigate(destination: String) {
-        when(destination){
-            "MVC" -> startActivity(Intent(this, MvcControllerActivity::class.java))
-            "MVP" -> startActivity(Intent(this, MvpActivity::class.java))
-            "MVVM" -> startActivity(Intent(this, MvvmActivity::class.java))
-            "MVI" -> startActivity(Intent(this, MviActivity::class.java))
-        }
-    }
 }
