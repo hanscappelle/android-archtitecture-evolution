@@ -18,7 +18,7 @@ class MvvmViewModel(
     }
 
     fun toggleTask(task: Task) {
-        val allTasks = tasks.value?.map { if (it == task) it.copy(completed = !task.completed) else it }
+        val allTasks = tasks.value?.map { if (it == task) it.copy(completed = !task.completed) else it }.orEmpty()
         tasks.postValue(allTasks)
     }
 }
