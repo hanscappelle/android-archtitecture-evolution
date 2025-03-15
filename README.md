@@ -279,7 +279,7 @@ dependencies {
 }
 ```
 
-Dependency injection is done with koin, so in manifest contains a specific Application:
+Dependency injection is done with koin, so manifest contains a specific Application:
 ```
 <application
         android:name=".common.di.MainApplication"
@@ -298,6 +298,7 @@ class MainApplication : Application() {
     }
 }
 ```
+Module definitions
 ```
 al appModule = module {
     viewModelOf(::MvvmViewModel)
