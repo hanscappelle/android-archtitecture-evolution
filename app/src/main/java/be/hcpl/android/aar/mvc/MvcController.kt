@@ -3,7 +3,8 @@ package be.hcpl.android.aar.mvc
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material3.Text
+import be.hcpl.android.aar.common.AppScaffold
+import org.koin.android.ext.android.inject
 
 /**
  * In an MVC architecture applied to Android the Controller was often directly
@@ -12,14 +13,16 @@ import androidx.compose.material3.Text
  */
 class MvcController : ComponentActivity() {
 
-
+    private val taskRepository: TaskRepository by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // this controller is responsible for getting data and sending it to the UI
-        val allTasks =
+        val allTasks = taskRepository.allTasks()
         setContent {
-            Text("Hello world!")
+            AppScaffold {
+                MvcView(allTasks)
+            }
         }
     }
 }

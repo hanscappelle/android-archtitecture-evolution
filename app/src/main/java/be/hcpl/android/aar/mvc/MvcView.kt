@@ -1,15 +1,11 @@
 package be.hcpl.android.aar.mvc
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import be.hcpl.android.aar.common.Task
 import be.hcpl.android.aar.common.TaskView
 
@@ -25,7 +21,9 @@ fun MvcView(
     modifier: Modifier = Modifier,
 ) {
 
-    Column(modifier = modifier) {
+    Column(
+        verticalArrangement = spacedBy(8.dp),
+        modifier = modifier) {
         Text("overview of all tasks")
         tasks.forEach {
             TaskView(it)
