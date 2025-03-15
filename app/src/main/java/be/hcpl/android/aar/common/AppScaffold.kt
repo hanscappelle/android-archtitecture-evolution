@@ -23,7 +23,7 @@ import be.hcpl.android.aar.common.view.NavigationItem
 @Composable
 fun AppScaffold(
     title: String = "Architecture Demo App",
-    navigateTo: (String) -> Unit,
+    navigateTo: (Navigation) -> Unit,
     content: @Composable () -> Unit,
 ) {
     AppTheme {
@@ -46,10 +46,10 @@ fun AppScaffold(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = SpaceEvenly
                     ) {
-                        NavigationItem("MVC", navigateTo)
-                        NavigationItem("MVP", navigateTo)
-                        NavigationItem("MVVM", navigateTo)
-                        NavigationItem("MVI", navigateTo)
+                        NavigationItem(Navigation.MVC, navigateTo)
+                        NavigationItem(Navigation.MVP, navigateTo)
+                        NavigationItem(Navigation.MVVM, navigateTo)
+                        NavigationItem(Navigation.MVI, navigateTo)
                     }
                 }
             },

@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import be.hcpl.android.aar.common.AppScaffold
+import be.hcpl.android.aar.common.Navigation
 import be.hcpl.android.aar.common.view.CodeView
 import be.hcpl.android.aar.common.model.Task
 import be.hcpl.android.aar.common.model.TaskList
@@ -20,7 +21,7 @@ import be.hcpl.android.aar.common.view.TitleView
 fun MviView(
     tasks: TaskList,
     onTaskSelected: (Task) -> Unit,
-    navigateTo: (String) -> Unit,
+    navigateTo: (Navigation) -> Unit,
 ) {
     AppScaffold(
         navigateTo = navigateTo,

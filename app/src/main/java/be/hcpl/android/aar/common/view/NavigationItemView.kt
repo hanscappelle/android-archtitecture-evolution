@@ -8,12 +8,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import be.hcpl.android.aar.common.Navigation
 import be.hcpl.android.aar.common.theme.AppTheme
 
 @Composable
-fun NavigationItem(text: String, navigateTo: (String) -> Unit) {
+fun NavigationItem(text: Navigation, navigateTo: (Navigation) -> Unit) {
     Text(
-        text,
+        text.name,
         Modifier.clickable { navigateTo(text) }
     )
 }
@@ -26,10 +27,10 @@ fun NavigationItemPreview() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = SpaceEvenly,
         ) {
-            NavigationItem("Text", {})
-            NavigationItem("Text", {})
-            NavigationItem("Text", {})
-            NavigationItem("Text", {})
+            NavigationItem(Navigation.MVC, {})
+            NavigationItem(Navigation.MVP, {})
+            NavigationItem(Navigation.MVVM, {})
+            NavigationItem(Navigation.MVI, {})
         }
     }
 }
