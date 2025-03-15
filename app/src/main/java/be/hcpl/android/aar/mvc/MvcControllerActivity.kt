@@ -1,6 +1,5 @@
 package be.hcpl.android.aar.mvc
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,9 +10,6 @@ import be.hcpl.android.aar.common.AppScaffold
 import be.hcpl.android.aar.common.Task
 import be.hcpl.android.aar.common.TaskRepository
 import be.hcpl.android.aar.common.navigate
-import be.hcpl.android.aar.mvi.MviActivity
-import be.hcpl.android.aar.mvp.MvpActivity
-import be.hcpl.android.aar.mvvm.MvvmActivity
 import org.koin.android.ext.android.inject
 
 /**
