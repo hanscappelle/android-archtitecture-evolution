@@ -1,5 +1,6 @@
 package be.hcpl.android.aar.mvp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,6 +10,9 @@ import androidx.compose.ui.unit.dp
 import be.hcpl.android.aar.common.AppScaffold
 import be.hcpl.android.aar.common.Task
 import be.hcpl.android.aar.common.TaskListView
+import be.hcpl.android.aar.mvc.MvcActivity
+import be.hcpl.android.aar.mvi.MviActivity
+import be.hcpl.android.aar.mvvm.MvvmActivity
 import org.koin.android.ext.android.inject
 
 /**
@@ -45,7 +49,9 @@ class MvpActivity : ComponentActivity(), View {
 
     override fun renderTasks(tasks: List<Task>) {
         setContent {
-            AppScaffold {
+            AppScaffold(
+                navigateTo = { destination -> navigate(destination) }
+            ) {
                 TaskListView(
                     tasks = tasks,
                     onTaskSelected = { task ->
@@ -56,6 +62,15 @@ class MvpActivity : ComponentActivity(), View {
                     modifier = Modifier.padding(16.dp),
                 )
             }
+        }
+    }
+
+    private fun navigate(destination: String) {
+        when(destination){
+            "MVC" -> startActivity(Intent(this, MvcActivity::class.java))
+            "MVP" -> startActivity(Intent(this, MvpActivity::class.java))
+            "MVVM" -> startActivity(Intent(this, MvvmActivity::class.java))
+            "MVI" -> startActivity(Intent(this, MviActivity::class.java))
         }
     }
 }

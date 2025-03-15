@@ -13,27 +13,27 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun TaskListView(
-        tasks: List<Task>,
-        onTaskSelected: (Task) -> Unit,
-        modifier: Modifier = Modifier,
+    tasks: List<Task>,
+    onTaskSelected: (Task) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        verticalArrangement = spacedBy(8.dp),
+        modifier = modifier,
     ) {
-        Column(
-            verticalArrangement = spacedBy(8.dp),
-            modifier = modifier,
-        ) {
-            Text(
-                text = "overview of all tasks",
-                style = MaterialTheme.typography.titleLarge,
+        Text(
+            text = "overview of all tasks",
+            style = MaterialTheme.typography.titleLarge,
+        )
+        HorizontalDivider()
+        tasks.forEach {
+            TaskView(
+                task = it,
+                onTaskSelected = onTaskSelected,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(48.dp)
             )
-            HorizontalDivider()
-            tasks.forEach {
-                TaskView(task = it,
-                    onTaskSelected = onTaskSelected,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(48.dp))
-            }
         }
     }
-
 }

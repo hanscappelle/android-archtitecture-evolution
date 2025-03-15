@@ -1,5 +1,6 @@
 package be.hcpl.android.aar.mvc
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,6 +10,9 @@ import androidx.compose.ui.unit.dp
 import be.hcpl.android.aar.common.AppScaffold
 import be.hcpl.android.aar.common.Task
 import be.hcpl.android.aar.common.TaskRepository
+import be.hcpl.android.aar.mvi.MviActivity
+import be.hcpl.android.aar.mvp.MvpActivity
+import be.hcpl.android.aar.mvvm.MvvmActivity
 import org.koin.android.ext.android.inject
 
 /**
@@ -31,7 +35,9 @@ class MvcActivity : ComponentActivity() {
 
     private fun renderTasks(tasks: List<Task>) {
         setContent {
-            AppScaffold {
+            AppScaffold(
+                navigateTo = { destination -> navigate(destination) }
+            ) {
                 MvcView(
                     tasks = tasks,
                     onTaskSelected = { task ->
@@ -50,5 +56,14 @@ class MvcActivity : ComponentActivity() {
         // note that for simplicity again we don't have any storage update
         allTasks = allTasks.map { if (it == task) it.copy(completed = !task.completed) else it }
         renderTasks(allTasks)
+    }
+
+    private fun navigate(destination: String) {
+        when(destination){
+            "MVC" -> startActivity(Intent(this, MvcActivity::class.java))
+            "MVP" -> startActivity(Intent(this, MvpActivity::class.java))
+            "MVVM" -> startActivity(Intent(this, MvvmActivity::class.java))
+            "MVI" -> startActivity(Intent(this, MviActivity::class.java))
+        }
     }
 }
