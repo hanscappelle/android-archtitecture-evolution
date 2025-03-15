@@ -321,7 +321,7 @@ class SomeActivity: ComponentActivity() {
 
 ## Some App screenshots
 
-<img width="200" src="https://github.com/hanscappelle/android-archtitecture-evolution/blob/main/screenshots/Screenshot_20250315_193752.png"/> <img width="200" src="https://github.com/hanscappelle/android-archtitecture-evolution/blob/main/screenshots/Screenshot_20250315_193816.png"/> <img width="200" src="https://github.com/hanscappelle/android-archtitecture-evolution/blob/main/screenshots/Screenshot_20250315_193825.png"/> <img width="200" src="https://github.com/hanscappelle/android-archtitecture-evolution/blob/main/screenshots/Screenshot_20250315_193833.png"/>
+<img width="200" src="https://github.com/hanscappelle/android-archtitecture-evolution/blob/main/screenshots/Screenshot_20250315_193752.png"/> <img width="200" src="https://github.com/hanscappelle/android-archtitecture-evolution/blob/main/screenshots/Screenshot_20250315_193816.png"/> <img width="200" src="https://github.com/hanscappelle/android-archtitecture-evolution/blob/main/screenshots/Screenshot_20250315_193825.png"/> <img width="200" src="https://github.com/hanscappelle/android-archtitecture-evolution/blob/main/screenshots/Screenshot_20250315_194554.png"/>
 
 ## Thank you for reading
 
