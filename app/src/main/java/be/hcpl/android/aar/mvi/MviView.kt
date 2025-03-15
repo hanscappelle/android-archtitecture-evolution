@@ -31,7 +31,7 @@ fun MviView(
                 .padding(vertical = 16.dp)
                 .verticalScroll(rememberScrollState()),
         ) {
-            TitleView(text = "Overview of all tasks with MVVM")
+            TitleView(text = "Overview of all tasks with MVI")
             TaskListView(
                 tasks = tasks.list,
                 onTaskSelected = onTaskSelected,
