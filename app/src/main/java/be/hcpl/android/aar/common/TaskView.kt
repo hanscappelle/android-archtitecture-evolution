@@ -1,14 +1,20 @@
 package be.hcpl.android.aar.common
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import be.hcpl.android.filmtag.ui.theme.AppTheme
@@ -16,11 +22,20 @@ import be.hcpl.android.filmtag.ui.theme.AppTheme
 @Composable
 fun TaskView(
     task: Task,
+    onTaskSelected: (Task) -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
     Row(
-        horizontalArrangement = spacedBy(8.dp)
+        horizontalArrangement = spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier.clickable { onTaskSelected(task) },
     ) {
-        Text(task.description)
+        Text(
+            text = task.description,
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.weight(1f),
+            fontWeight = if (!task.completed) FontWeight.Bold else FontWeight.Normal,
+        )
         if (task.completed) {
             Image(
                 imageVector = Icons.Default.Done,

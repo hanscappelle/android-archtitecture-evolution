@@ -3,7 +3,11 @@ package be.hcpl.android.aar.mvc
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import be.hcpl.android.aar.common.AppScaffold
+import be.hcpl.android.aar.common.Task
 import org.koin.android.ext.android.inject
 
 /**
@@ -15,14 +19,35 @@ class MvcController : ComponentActivity() {
 
     private val taskRepository: TaskRepository by inject()
 
+    private var allTasks: List<Task> = emptyList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // this controller is responsible for getting data and sending it to the UI
-        val allTasks = taskRepository.allTasks()
+        allTasks = taskRepository.allTasks()
+        renderTasks(allTasks)
+    }
+
+    private fun renderTasks(tasks: List<Task>) {
         setContent {
             AppScaffold {
-                MvcView(allTasks)
+                MvcView(
+                    tasks = tasks,
+                    onTaskSelected = { task ->
+                        // this activity being the controller it handles
+                        // click events from the view also
+                        toggleTask(task)
+                    },
+                    modifier = Modifier.padding(16.dp),
+                )
             }
         }
+    }
+
+    private fun toggleTask(task: Task) {
+        // this just toggles the state of that single task and updates the full list of tasks
+        // note that for simplicity again we don't have any storage update
+        allTasks = allTasks.map { if (it == task) it.copy(completed = !task.completed) else it }
+        renderTasks(allTasks)
     }
 }
