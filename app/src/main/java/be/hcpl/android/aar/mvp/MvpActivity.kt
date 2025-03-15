@@ -40,7 +40,6 @@ class MvpActivity : ComponentActivity(), View {
         // since a presenter is not lifecycle aware we have to manually
         // add/remove the view, this is a very basic approach
         presenter.view = this
-
         // we now have a presenter to manage our app state and business logic
         presenter.showAllTasks()
     }

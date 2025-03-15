@@ -19,14 +19,17 @@ import org.koin.android.ext.android.inject
  */
 class MvcActivity : ComponentActivity() {
 
+    // repository injected directly into the Android Activity is a good sign something is NOK
     private val taskRepository: TaskRepository by inject()
 
+    // same for application state, but this is how it was often done initially
     private var allTasks: List<Task> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // this controller is responsible for getting data and sending it to the UI
+        // this controller is responsible for getting data
         allTasks = taskRepository.allTasks()
+        // and sending it to the UI
         renderTasks(allTasks)
     }
 
@@ -50,7 +53,7 @@ class MvcActivity : ComponentActivity() {
 
     private fun toggleTask(task: Task) {
         // this just toggles the state of that single task and updates the full list of tasks
-        // note that for simplicity again we don't have any storage update
+        // note that for simplicity again we don't have any storage update using the repository
         allTasks = allTasks.map { if (it == task) it.copy(completed = !task.completed) else it }
         renderTasks(allTasks)
     }

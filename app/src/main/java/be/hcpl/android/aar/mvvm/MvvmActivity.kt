@@ -26,14 +26,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  */
 class MvvmActivity : ComponentActivity() {
 
-    // important difference here is the introduction of a ViewModel
+    // important difference here is the introduction of a ViewModel, also injected
     private val viewModel: MvvmViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // now we have a viewModel with LiveData exposed
         viewModel.tasks.observeForever(::renderTasks)
-        // and then trigger an update
+        // and then trigger an initial update
         viewModel.showAllTasks()
     }
 

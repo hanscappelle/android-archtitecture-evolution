@@ -1,12 +1,12 @@
 package be.hcpl.android.aar.mvi
 
-import be.hcpl.android.aar.common.model.TaskList
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.bundle.Bundle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import be.hcpl.android.aar.common.navigate
 import org.koin.androidx.viewmodel.ext.android.viewModel
+// when adding compose-lifecycle watch out for this import sneaking in cause it will break by collectAsStateWithLifecycle()
 //import kotlin.getValue
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
@@ -26,7 +26,7 @@ class MviActivity : ComponentActivity() {
             // now we have a viewModel with StateFlow exposed
             val tasks by viewModel.tasks.collectAsStateWithLifecycle()
             MviView(
-                tasks = tasks,
+                tasks = tasks, // passed directly to the Composable
                 onTaskSelected = { task -> viewModel.toggleTask(task) },
                 navigateTo = { destination -> navigate(destination) },
             )
