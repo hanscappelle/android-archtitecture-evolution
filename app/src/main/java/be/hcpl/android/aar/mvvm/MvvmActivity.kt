@@ -42,7 +42,7 @@ class MvvmActivity : ComponentActivity() {
             ) {
                 Column(
                     verticalArrangement = spacedBy(8.dp),
-                    modifier = Modifier.padding(16.dp),
+                    modifier = Modifier.padding(vertical = 16.dp),
                 ) {
                     Text(
                         text = "Overview of all tasks with MVVM",
@@ -56,7 +56,7 @@ class MvvmActivity : ComponentActivity() {
                             // so the presenter can again update the view
                             viewModel.toggleTask(task)
                         },
-                        modifier = Modifier.padding(16.dp),
+                        modifier = Modifier.padding(vertical = 16.dp),
                     )
                 }
             }

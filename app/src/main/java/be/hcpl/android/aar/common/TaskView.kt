@@ -4,6 +4,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.MaterialTheme
@@ -27,7 +30,8 @@ fun TaskView(
     Row(
         horizontalArrangement = spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier.clickable { onTaskSelected(task) },
+        modifier = Modifier.fillMaxWidth()
+            .height(48.dp).padding(horizontal = 16.dp).clickable { onTaskSelected(task) },
     ) {
         Text(
             text = task.description,

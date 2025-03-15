@@ -22,9 +22,6 @@ fun TaskListView(
             TaskView(
                 task = it,
                 onTaskSelected = onTaskSelected,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(48.dp)
             )
         }
     }

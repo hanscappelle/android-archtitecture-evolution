@@ -70,7 +70,7 @@ class MvpActivity : ComponentActivity(), View {
                             // so the presenter can again update the view
                             presenter.toggleTask(task)
                         },
-                        modifier = Modifier.padding(16.dp),
+                        modifier = Modifier.padding(vertical = 16.dp),
                     )
                 }
             }
