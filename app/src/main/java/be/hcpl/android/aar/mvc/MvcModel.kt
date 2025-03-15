@@ -6,4 +6,4 @@ package be.hcpl.android.aar.mvc
  * for data retrieval
  */
 
-
+// see Task data class and TaskRepository

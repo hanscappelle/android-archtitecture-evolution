@@ -1,7 +1,13 @@
 package be.hcpl.android.aar.mvc
 
+import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import be.hcpl.android.aar.common.Task
 import be.hcpl.android.aar.common.TaskListView
 
@@ -17,7 +23,17 @@ fun MvcView(
     onTaskSelected: (Task) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    TaskListView(tasks, onTaskSelected, modifier)
+    Column(
+        verticalArrangement = spacedBy(8.dp),
+        modifier = modifier,
+    ) {
+        Text(
+            text = "Overview of all tasks with MVC",
+            style = MaterialTheme.typography.titleLarge,
+        )
+        HorizontalDivider()
+        TaskListView(tasks, onTaskSelected, modifier)
+    }
 }
 
 
