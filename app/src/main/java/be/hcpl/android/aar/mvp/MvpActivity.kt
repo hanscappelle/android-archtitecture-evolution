@@ -6,12 +6,15 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import be.hcpl.android.aar.common.AppScaffold
+import be.hcpl.android.aar.common.CodeView
 import be.hcpl.android.aar.common.Task
 import be.hcpl.android.aar.common.TaskListView
 import be.hcpl.android.aar.common.navigate
@@ -56,11 +59,12 @@ class MvpActivity : ComponentActivity(), View {
             ) {
                 Column(
                     verticalArrangement = spacedBy(8.dp),
-                    modifier = Modifier.padding(16.dp),
+                    modifier = Modifier.padding(vertical = 16.dp).verticalScroll(rememberScrollState()),
                 ) {
                     Text(
                         text = "Overview of all tasks with MVP",
                         style = MaterialTheme.typography.titleLarge,
+                        modifier = Modifier.padding(horizontal = 16.dp),
                     )
                     HorizontalDivider()
                     TaskListView(
@@ -71,6 +75,33 @@ class MvpActivity : ComponentActivity(), View {
                             presenter.toggleTask(task)
                         },
                         modifier = Modifier.padding(vertical = 16.dp),
+                    )
+                    CodeView(
+                        text = "class MvpActivity : ComponentActivity(), View {\n" +
+                                "\n" +
+                                "    private val presenter: Presenter by inject()\n" +
+                                "\n" +
+                                "    override fun onCreate(savedInstanceState: Bundle?) {\n" +
+                                "        super.onCreate(savedInstanceState)\n" +
+                                "        // the presenter is not aware yet of the view,\n" +
+                                "        // and we should manually check if still attached\n" +
+                                "    }\n" +
+                                "\n" +
+                                "    override fun onAttachedToWindow() {\n" +
+                                "        super.onAttachedToWindow()\n" +
+                                "        presenter.view = this\n" +
+                                "        presenter.showAllTasks()\n" +
+                                "    }\n" +
+                                "\n" +
+                                "    override fun onDetachedFromWindow() {\n" +
+                                "        super.onDetachedFromWindow()\n" +
+                                "        presenter.view = null\n" +
+                                "    }\n" +
+                                "\n" +
+                                "    override fun renderTasks(tasks: List<Task>) {\n" +
+                                "    //...\n" +
+                                "}\n"
+
                     )
                 }
             }

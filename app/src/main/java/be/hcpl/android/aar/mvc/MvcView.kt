@@ -39,7 +39,7 @@ fun MvcView(
         HorizontalDivider()
         TaskListView(tasks, onTaskSelected, modifier)
         CodeView(
-            text = "class MvcControllerActivity : ComponentActivity() {\n" +
+            text = "class MvcActivity : ComponentActivity() {\n" +
                     "\n" +
                     "    private val taskRepository: TaskRepository by inject()\n" +
                     "\n" +
