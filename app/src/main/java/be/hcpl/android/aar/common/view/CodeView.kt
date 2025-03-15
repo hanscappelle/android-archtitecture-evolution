@@ -1,4 +1,4 @@
-package be.hcpl.android.aar.common
+package be.hcpl.android.aar.common.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth

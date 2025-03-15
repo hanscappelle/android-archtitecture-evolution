@@ -1,4 +1,4 @@
-package be.hcpl.android.aar.common
+package be.hcpl.android.aar.common.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -30,8 +30,11 @@ fun TaskView(
     Row(
         horizontalArrangement = spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth()
-            .height(48.dp).padding(horizontal = 16.dp).clickable { onTaskSelected(task) },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(48.dp)
+            .padding(horizontal = 16.dp)
+            .clickable { onTaskSelected(task) },
     ) {
         Text(
             text = task.description,

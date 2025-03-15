@@ -8,16 +8,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import be.hcpl.android.aar.common.AppScaffold
-import be.hcpl.android.aar.common.CodeView
+import be.hcpl.android.aar.common.view.CodeView
 import be.hcpl.android.aar.common.model.Task
-import be.hcpl.android.aar.common.TaskListView
+import be.hcpl.android.aar.common.view.TaskListView
+import be.hcpl.android.aar.common.view.TitleView
 import be.hcpl.android.aar.common.navigate
+import be.hcpl.android.aar.common.view.InfoTextView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -49,12 +48,7 @@ class MvvmActivity : ComponentActivity() {
                         .padding(vertical = 16.dp)
                         .verticalScroll(rememberScrollState()),
                 ) {
-                    Text(
-                        text = "Overview of all tasks with MVVM",
-                        style = MaterialTheme.typography.titleLarge,
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                    )
-                    HorizontalDivider()
+                    TitleView(text = "Overview of all tasks with MVVM")
                     TaskListView(
                         tasks = tasks,
                         onTaskSelected = { task ->
@@ -64,6 +58,8 @@ class MvvmActivity : ComponentActivity() {
                         },
                         modifier = Modifier.padding(vertical = 16.dp),
                     )
+                    TitleView("Sample Code")
+                    InfoTextView("The replacement for a Presenter is a lifecycle aware ViewModel provided by Google.")
                     CodeView(
                         text = "class MvvmActivity : ComponentActivity() {\n" +
                                 "\n" +
@@ -79,6 +75,20 @@ class MvvmActivity : ComponentActivity() {
                                 "    fun renderTasks(tasks: List<Task>) {\n" +
                                 "    //...\n" +
                                 "}\n"
+                    )
+                    InfoTextView("The ViewModel can have LiveData that can be observed in the View.")
+                    CodeView(
+                        "class MvvmViewModel(\n" +
+                                "    private val taskRepository: TaskRepository,\n" +
+                                ") : ViewModel() {\n" +
+                                "\n" +
+                                "    // should really be hidden after a non mutable private property\n" +
+                                "    val tasks: MutableLiveData<List<Task>> = MutableLiveData(emptyList())\n" +
+                                "\n" +
+                                "    fun showAllTasks() {\n" +
+                                "        tasks.postValue(taskRepository.allTasks())\n" +
+                                "    }\n" +
+                                "}"
                     )
                 }
             }

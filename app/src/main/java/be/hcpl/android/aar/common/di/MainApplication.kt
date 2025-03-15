@@ -6,10 +6,11 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 
-
+/**
+ * Needed for koin, set in manifest.
+ */
 class MainApplication : Application() {
 
-    // needed for koin
     override fun onCreate() {
         super.onCreate()
         startKoin {

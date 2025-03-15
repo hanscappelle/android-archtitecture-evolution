@@ -10,6 +10,10 @@ import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
+/**
+ * App module for koin dependency injection (just this one for simple app).
+ * This module is referenced in [MainApplication].
+ */
 val appModule = module {
 
     viewModelOf(::MvvmViewModel)

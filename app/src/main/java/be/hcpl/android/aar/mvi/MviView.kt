@@ -5,17 +5,16 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import be.hcpl.android.aar.common.AppScaffold
-import be.hcpl.android.aar.common.CodeView
+import be.hcpl.android.aar.common.view.CodeView
 import be.hcpl.android.aar.common.model.Task
 import be.hcpl.android.aar.common.model.TaskList
-import be.hcpl.android.aar.common.TaskListView
+import be.hcpl.android.aar.common.view.InfoTextView
+import be.hcpl.android.aar.common.view.TaskListView
+import be.hcpl.android.aar.common.view.TitleView
 
 @Composable
 fun MviView(
@@ -32,17 +31,14 @@ fun MviView(
                 .padding(vertical = 16.dp)
                 .verticalScroll(rememberScrollState()),
         ) {
-            Text(
-                text = "Overview of all tasks with MVVM",
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(horizontal = 16.dp),
-            )
-            HorizontalDivider()
+            TitleView(text = "Overview of all tasks with MVVM")
             TaskListView(
                 tasks = tasks.list,
                 onTaskSelected = onTaskSelected,
                 modifier = Modifier.padding(vertical = 16.dp),
             )
+            TitleView("Sample Code")
+            InfoTextView("This final MVI approach has a ViewModel with StateFlow. That is converted here with collectAsStateWithLifecycle().")
             CodeView(
                 text = "class MviActivity : ComponentActivity() {\n" +
                         "\n" +
@@ -60,6 +56,22 @@ fun MviView(
                         "        }\n" +
                         "        // trigger initial update, could be part of init on ViewModel also\n" +
                         "        viewModel.showAllTasks()\n" +
+                        "    }\n" +
+                        "}"
+            )
+            InfoTextView("Note how here the tasks StateFlow is properly hidden with a private MutableStateFlow field.")
+            CodeView(
+                "class MviViewModel(\n" +
+                        "    private val taskRepository: TaskRepository,\n" +
+                        ") : ViewModel() {\n" +
+                        "\n" +
+                        "    private val _tasks: MutableStateFlow<TaskList> by lazy {\n" +
+                        "        MutableStateFlow(TaskList())\n" +
+                        "    }\n" +
+                        "    val tasks: StateFlow<TaskList> by lazy { _tasks.asStateFlow() }\n" +
+                        "\n" +
+                        "    fun showAllTasks() {\n" +
+                        "        _tasks.update { TaskList(taskRepository.allTasks()) }\n" +
                         "    }\n" +
                         "}"
             )

@@ -8,16 +8,16 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import be.hcpl.android.aar.common.AppScaffold
-import be.hcpl.android.aar.common.CodeView
+import be.hcpl.android.aar.common.view.CodeView
 import be.hcpl.android.aar.common.model.Task
-import be.hcpl.android.aar.common.TaskListView
+import be.hcpl.android.aar.common.view.TaskListView
+import be.hcpl.android.aar.common.view.TitleView
 import be.hcpl.android.aar.common.navigate
+import be.hcpl.android.aar.common.view.InfoTextView
 import org.koin.android.ext.android.inject
 
 /**
@@ -59,14 +59,11 @@ class MvpActivity : ComponentActivity(), View {
             ) {
                 Column(
                     verticalArrangement = spacedBy(8.dp),
-                    modifier = Modifier.padding(vertical = 16.dp).verticalScroll(rememberScrollState()),
+                    modifier = Modifier
+                        .padding(vertical = 16.dp)
+                        .verticalScroll(rememberScrollState()),
                 ) {
-                    Text(
-                        text = "Overview of all tasks with MVP",
-                        style = MaterialTheme.typography.titleLarge,
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                    )
-                    HorizontalDivider()
+                    TitleView(text = "Overview of all tasks with MVP")
                     TaskListView(
                         tasks = tasks,
                         onTaskSelected = { task ->
@@ -76,6 +73,8 @@ class MvpActivity : ComponentActivity(), View {
                         },
                         modifier = Modifier.padding(vertical = 16.dp),
                     )
+                    TitleView("Sample Code")
+                    InfoTextView("Very similar approach to MVC with controller often implemented as Activity, Fragment or View.")
                     CodeView(
                         text = "class MvpActivity : ComponentActivity(), View {\n" +
                                 "\n" +
@@ -83,8 +82,7 @@ class MvpActivity : ComponentActivity(), View {
                                 "\n" +
                                 "    override fun onCreate(savedInstanceState: Bundle?) {\n" +
                                 "        super.onCreate(savedInstanceState)\n" +
-                                "        // the presenter is not aware yet of the view,\n" +
-                                "        // and we should manually check if still attached\n" +
+                                "        // presenter is not aware lifecycle so set and remove view manually\n" +
                                 "    }\n" +
                                 "\n" +
                                 "    override fun onAttachedToWindow() {\n" +
@@ -97,11 +95,36 @@ class MvpActivity : ComponentActivity(), View {
                                 "        super.onDetachedFromWindow()\n" +
                                 "        presenter.view = null\n" +
                                 "    }\n" +
-                                "\n" +
-                                "    override fun renderTasks(tasks: List<Task>) {\n" +
-                                "    //...\n" +
                                 "}\n"
-
+                    )
+                    InfoTextView("This time with interfaces for the View and Presenter contracts.")
+                    CodeView(
+                        text = "interface View {\n" +
+                                "    fun renderTasks(tasks: List<Task>)\n" +
+                                "}\n" +
+                                "\n" +
+                                "interface Presenter {\n" +
+                                "    var view: View?\n" +
+                                "    fun showAllTasks()\n" +
+                                "    fun toggleTask(task: Task)\n" +
+                                "}"
+                    )
+                    InfoTextView(
+                        "And more importantly a Presenter implementation that separates logic and makes all of this code testable. " +
+                                "Important to check if the view referenced here is still Attached since this is not lifecycle aware."
+                    )
+                    CodeView(
+                        text = "class PresenterImpl() : Presenter {\n" +
+                                "\n" +
+                                "    override var view: View? = null\n" +
+                                "\n" +
+                                "    private var allTasks: List<Task> = emptyList()\n" +
+                                "\n" +
+                                "    override fun showAllTasks() {\n" +
+                                "        allTasks = taskRepository.allTasks()\n" +
+                                "        view?.renderTasks(allTasks)\n" +
+                                "    }"+
+                                "}\n"
                     )
                 }
             }

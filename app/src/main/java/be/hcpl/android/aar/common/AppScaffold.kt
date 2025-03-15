@@ -1,6 +1,5 @@
 package be.hcpl.android.aar.common
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.SpaceEvenly
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import be.hcpl.android.aar.common.theme.AppTheme
 import be.hcpl.android.aar.common.theme.customColor2
 import be.hcpl.android.aar.common.theme.onPrimaryDark
+import be.hcpl.android.aar.common.view.NavigationItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,10 +46,10 @@ fun AppScaffold(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = SpaceEvenly
                     ) {
-                        Text("MVC", modifier = Modifier.clickable { navigateTo("MVC") })
-                        Text("MVP", modifier = Modifier.clickable { navigateTo("MVP") })
-                        Text("MVVM", modifier = Modifier.clickable { navigateTo("MVVM") })
-                        Text("MVI", modifier = Modifier.clickable { navigateTo("MVI") })
+                        NavigationItem("MVC", navigateTo)
+                        NavigationItem("MVP", navigateTo)
+                        NavigationItem("MVVM", navigateTo)
+                        NavigationItem("MVI", navigateTo)
                     }
                 }
             },
