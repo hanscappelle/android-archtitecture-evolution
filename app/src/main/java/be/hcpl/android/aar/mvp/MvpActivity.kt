@@ -1,0 +1,49 @@
+package be.hcpl.android.aar.mvp
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import be.hcpl.android.aar.common.AppScaffold
+import be.hcpl.android.aar.common.Task
+import be.hcpl.android.aar.common.TaskListView
+import be.hcpl.android.aar.mvc.MvcView
+import org.koin.android.ext.android.inject
+
+/**
+ * For the MVP approach there is a View and Presenter interface added. The Activity,
+ * Fragment or custom android.View would implement the View interface while a separate
+ * Presenter implementation to extract logic and improve testability.
+ */
+class MvpActivity : ComponentActivity(), View {
+
+    // thanks to the interfaces this is easy to inject and change afterwards
+    private val presenter: Presenter by inject()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // the presenter is not aware yet of the view,
+        // and we should manually check if still attached
+        presenter.view = this
+        // we now have a presenter to manage our app state and business logic
+        presenter.showAllTasks()
+    }
+
+    override fun renderTasks(tasks: List<Task>) {
+        setContent {
+            AppScaffold {
+                TaskListView(
+                    tasks = tasks,
+                    onTaskSelected = { task ->
+                        // also here this has moved to the presenter
+                        // so the presenter can again update the view
+                        presenter.toggleTask(task)
+                    },
+                    modifier = Modifier.padding(16.dp),
+                )
+            }
+        }
+    }
+}
