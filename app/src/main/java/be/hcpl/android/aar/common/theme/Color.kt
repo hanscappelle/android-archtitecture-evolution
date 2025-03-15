@@ -1,4 +1,4 @@
-package be.hcpl.android.filmtag.ui.theme
+package be.hcpl.android.aar.common.theme
 
 import androidx.compose.ui.graphics.Color
 

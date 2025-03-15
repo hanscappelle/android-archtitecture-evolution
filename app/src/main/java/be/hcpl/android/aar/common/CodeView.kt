@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.Typeface
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import be.hcpl.android.filmtag.ui.theme.AppTheme
+import be.hcpl.android.aar.common.theme.AppTheme
 
 @Composable
 fun CodeView(

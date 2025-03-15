@@ -16,6 +16,6 @@ val appModule = module {
     viewModelOf(::MviViewModel)
 
     factoryOf(::TaskRepository)
-    factoryOf(::PresenterImpl) { bind<Presenter>() }
+    factoryOf(::PresenterImpl) { bind<Presenter>() } // injected by interface here
 
 }

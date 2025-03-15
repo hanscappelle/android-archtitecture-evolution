@@ -6,8 +6,10 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 
+
 class MainApplication : Application() {
 
+    // needed for koin
     override fun onCreate() {
         super.onCreate()
         startKoin {

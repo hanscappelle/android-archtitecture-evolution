@@ -15,9 +15,9 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import be.hcpl.android.filmtag.ui.theme.AppTheme
-import be.hcpl.android.filmtag.ui.theme.customColor2
-import be.hcpl.android.filmtag.ui.theme.onPrimaryDark
+import be.hcpl.android.aar.common.theme.AppTheme
+import be.hcpl.android.aar.common.theme.customColor2
+import be.hcpl.android.aar.common.theme.onPrimaryDark
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

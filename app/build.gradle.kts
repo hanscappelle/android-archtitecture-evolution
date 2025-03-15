@@ -40,19 +40,21 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+    //implementation(libs.material)
+
+    // testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
     // for injection
-    implementation("io.insert-koin:koin-android:4.0.2")
+    implementation(libs.koin.android)
 
     // compose
-    implementation("androidx.activity:activity-compose:1.10.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.7")
-    implementation("androidx.compose.material3:material3:1.3.1")
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.material3)
     // tooling
-    implementation("androidx.compose.ui:ui-tooling-preview-android:1.7.8")
-    implementation("androidx.compose.ui:ui-tooling:1.7.8")
+    implementation(libs.androidx.ui.tooling.preview.android)
+    implementation(libs.androidx.ui.tooling)
 }
