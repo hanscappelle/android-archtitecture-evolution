@@ -22,6 +22,6 @@ fun InfoTextView(text: String) {
 @Composable
 fun InfoTextViewPreview() {
     AppTheme {
-        InfoTextView("Info text goes here")
+        InfoTextView("Info text goes here and is typically longer content of multiple lines and what not.")
     }
 }

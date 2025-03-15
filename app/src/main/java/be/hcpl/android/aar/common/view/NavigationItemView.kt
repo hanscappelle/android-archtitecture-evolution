@@ -29,6 +29,7 @@ fun NavigationItemPreview() {
             NavigationItem("Text", {})
             NavigationItem("Text", {})
             NavigationItem("Text", {})
+            NavigationItem("Text", {})
         }
     }
 }

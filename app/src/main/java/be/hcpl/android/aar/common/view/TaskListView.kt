@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import be.hcpl.android.aar.common.model.Task
-import be.hcpl.android.aar.common.model.TaskList
 import be.hcpl.android.aar.common.theme.AppTheme
 
 @Composable

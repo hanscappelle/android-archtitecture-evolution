@@ -17,7 +17,7 @@ import org.koin.android.ext.android.inject
  * implemented by the Activity or Fragment Android class. Note that the use of
  * anything Android framework specific will make testing difficult.
  */
-class MvcControllerActivity : ComponentActivity() {
+class MvcActivity : ComponentActivity() {
 
     private val taskRepository: TaskRepository by inject()
 

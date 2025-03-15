@@ -4,9 +4,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.MaterialTheme
@@ -32,14 +35,17 @@ fun TaskView(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .height(48.dp)
-            .padding(horizontal = 16.dp)
             .clickable { onTaskSelected(task) },
     ) {
         Text(
             text = task.description,
             style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .height(48.dp)
+                .padding(horizontal = 16.dp)
+                .wrapContentHeight(align = Alignment.CenterVertically)
+            ,
             fontWeight = if (!task.completed) FontWeight.Bold else FontWeight.Normal,
         )
         if (task.completed) {
@@ -49,6 +55,7 @@ fun TaskView(
                 colorFilter = ColorFilter.tint(Color.Green),
             )
         }
+        Spacer(Modifier.width(16.dp))
     }
 }
 
